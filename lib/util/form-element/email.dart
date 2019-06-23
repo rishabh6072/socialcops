@@ -4,23 +4,35 @@ import '../../model/form-model.dart';
 
 class Email extends StatelessWidget {
   final Fields fields;
-  final _formKey = GlobalKey<FormState>();
-  Email({@required this.fields});
+  final Map<String, dynamic> inputData;
+  Email({@required this.fields, this.inputData});
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: TextFormField(
-        decoration: InputDecoration(
-            border: OutlineInputBorder(), hintText: fields.title),
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Enter some text';
-          }
-          return null;
-        },
+    return TextFormField(
+      decoration: new InputDecoration(
+        labelText: '${fields.title}',
+        fillColor: Colors.white,
+        border: new OutlineInputBorder(
+          borderRadius: new BorderRadius.circular(25.0),
+          borderSide: new BorderSide(),
+        ),
       ),
+      onSaved: (text) {
+        inputData[fields.id] = text;
+      },
+      validator: (value) {
+        bool emailValid =
+            RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
+
+        if (value.isEmpty && fields.validations.required) {
+          return "${fields.title}";
+        }
+        if (!emailValid) {
+          return 'Invalid Email';
+        }
+        return null;
+      },
     );
   }
 }

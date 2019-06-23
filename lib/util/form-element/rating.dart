@@ -12,26 +12,38 @@ class Rating extends StatefulWidget {
 }
 
 class _RatingState extends State<Rating> {
-  final _formKey = GlobalKey<FormState>();
-  double rating = 0;
+  double rating = 4;
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: SmoothStarRating(
-          allowHalfRating: false,
-          onRatingChanged: (v) {
-            setState(() {
-              rating = v;
-            });
-          },
-          starCount: 5,
-          rating: rating,
-          size: 40.0,
-          color: Colors.cyan,
-          borderColor: Colors.black,
-          spacing: 0.0),
+    return Container(
+      child: Center(
+        child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+          Text(
+            "${widget.fields.title}",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontFamily: 'Poppins-Medium',
+                fontWeight: FontWeight.bold,
+                fontSize: 14.0,
+                color: Colors.black),
+          ),
+          SmoothStarRating(
+            allowHalfRating: false,
+            onRatingChanged: (v) {
+              setState(() {
+                rating = v;
+              });
+            },
+            starCount: 5,
+            rating: rating,
+            size: 40.0,
+            color: Theme.of(context).accentColor,
+            borderColor: Colors.black,
+            spacing: 0.0,
+          ),
+        ]),
+      ),
     );
   }
 }

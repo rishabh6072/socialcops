@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:date_format/date_format.dart';
 
 import '../../model/form-model.dart';
 
 class Date extends StatefulWidget {
   final Fields fields;
-  Date({@required this.fields});
+  final Map<String, dynamic> inputData;
+
+  Date({@required this.fields, this.inputData});
 
   @override
   _DateState createState() => _DateState();
@@ -23,23 +26,34 @@ class _DateState extends State<Date> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
+       widget.inputData[widget.fields.id] = formatDate(picked, [mm, '/', dd, '/', yyyy]);
       });
   }
 
   @override
   Widget build(BuildContext context) {
+    widget.inputData[widget.fields.id] = formatDate(DateTime.now(), [mm, '/', dd, '/', yyyy]);
+
     return Container(
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text("${selectedDate.toLocal()}"),
-            SizedBox(
-              height: 20.0,
+      
+            Text(
+              "${widget.fields.title}",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: 'Poppins-Medium',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14.0,
+                  color: Colors.black),
             ),
             RaisedButton(
+              color: Theme.of(context).accentColor,
               onPressed: () => _selectDate(context),
-              child: Text('Select date'),
+              child:
+                  Text("${formatDate(selectedDate.toLocal(), [mm, '/', dd, '/', yyyy])}"),
             ),
           ],
         ),

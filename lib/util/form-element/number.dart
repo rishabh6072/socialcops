@@ -4,24 +4,30 @@ import '../../model/form-model.dart';
 
 class Number extends StatelessWidget {
   final Fields fields;
-  final _formKey = GlobalKey<FormState>();
-  Number({@required this.fields});
+  final Map<String, dynamic> inputData;
+  Number({@required this.fields, this.inputData});
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: TextFormField(
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-            border: OutlineInputBorder(), hintText: fields.title),
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Enter some text';
-          }
-          return null;
-        },
+    return TextFormField(
+      keyboardType: TextInputType.number,
+      decoration: new InputDecoration(
+        labelText: '${fields.title}',
+        fillColor: Colors.white,
+        border: new OutlineInputBorder(
+          borderRadius: new BorderRadius.circular(25.0),
+          borderSide: new BorderSide(),
+        ),
       ),
+      onSaved: (text) {
+        inputData[fields.id] = text;
+      },
+      validator: (value) {
+        if (value.isEmpty && fields.validations.required) {
+          return "${fields.title}";
+        }
+        return null;
+      },
     );
   }
 }

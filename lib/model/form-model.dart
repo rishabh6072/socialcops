@@ -109,13 +109,15 @@ class WelcomeScreens {
 
 class Properties {
   bool showButton;
+  bool shareIcons;
   String description;
   String buttonText;
 
-  Properties({this.showButton, this.description, this.buttonText});
+  Properties({this.showButton, this.shareIcons, this.description, this.buttonText});
 
   Properties.fromJson(Map<String, dynamic> json) {
     showButton = json['show_button'];
+    shareIcons = json['share_icons'];
     description = json['description'];
     buttonText = json['button_text'];
   }
@@ -123,6 +125,7 @@ class Properties {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['show_button'] = this.showButton;
+    data['share_icons'] = this.shareIcons;
     data['description'] = this.description;
     data['button_text'] = this.buttonText;
     return data;

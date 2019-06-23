@@ -49,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
                   child: Text(
                     formData.welcomeScreens[0].properties.description,
                     style: TextStyle(
-                      color: Colors.cyan,
+                      color: Theme.of(context).accentColor,
                       fontSize: 24.0,
                     ),
                     textAlign: TextAlign.center,
@@ -70,7 +70,7 @@ class WelcomeScreen extends StatelessWidget {
                     },
                     shape: StadiumBorder(),
                     padding: EdgeInsets.symmetric(horizontal: 85, vertical: 10),
-                    color: Colors.cyan,
+                    color: Theme.of(context).accentColor,
                     textColor: Colors.white,
                     child: Text(
                       formData.welcomeScreens[0].properties.buttonText,

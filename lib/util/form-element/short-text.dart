@@ -4,23 +4,30 @@ import '../../model/form-model.dart';
 
 class ShortText extends StatelessWidget {
   final Fields fields;
-  final _formKey = GlobalKey<FormState>();
-  ShortText({@required this.fields});
+  final Map<String, dynamic> inputData;
+
+  ShortText({@required this.fields, this.inputData});
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: TextFormField(
-        decoration: InputDecoration(
-            border: OutlineInputBorder(), hintText: fields.title),
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Enter some text';
-          }
-          return null;
-        },
+    return TextFormField(
+      decoration: new InputDecoration(
+        labelText: '${fields.title}',
+        fillColor: Colors.white,
+        border: new OutlineInputBorder(
+          borderRadius: new BorderRadius.circular(25.0),
+          borderSide: new BorderSide(),
+        ),
       ),
+      onSaved: (text) {
+        inputData[fields.id] = text;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          return "${fields.title}";
+        }
+        return null;
+      },
     );
   }
 }
